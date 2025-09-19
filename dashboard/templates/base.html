@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elinity Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', path='css/styles.css') }}">
+</head>
+<body class="bg-gray-100">
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar -->
+        <div class="bg-indigo-800 text-white w-64 flex-shrink-0">
+            <div class="p-4">
+                <h1 class="text-2xl font-bold">Elinity</h1>
+                <p class="text-indigo-200 text-sm">Admin Dashboard</p>
+            </div>
+            <nav class="mt-6">
+                <a href="/admin" class="block py-2.5 px-4 flex items-center hover:bg-indigo-700 transition-colors duration-200">
+                    <i class="fas fa-tachometer-alt w-6 text-center"></i>
+                    <span class="ml-3">Dashboard</span>
+                </a>
+                <a href="/admin/users" class="block py-2.5 px-4 flex items-center hover:bg-indigo-700 transition-colors duration-200">
+                    <i class="fas fa-users w-6 text-center"></i>
+                    <span class="ml-3">Users</span>
+                </a>
+                <a href="/admin/analytics" class="block py-2.5 px-4 flex items-center hover:bg-indigo-700 transition-colors duration-200">
+                    <i class="fas fa-chart-line w-6 text-center"></i>
+                    <span class="ml-3">Analytics</span>
+                </a>
+                <a href="/admin/blogs" class="block py-2.5 px-4 flex items-center hover:bg-indigo-700 transition-colors duration-200">
+                    <i class="fas fa-blog w-6 text-center"></i>
+                    <span class="ml-3">Blog Management</span>
+                </a>
+                <a href="/admin/settings" class="block py-2.5 px-4 flex items-center hover:bg-indigo-700 transition-colors duration-200">
+                    <i class="fas fa-cog w-6 text-center"></i>
+                    <span class="ml-3">Settings</span>
+                </a>
+                <a href="/admin/auth/logout" class="block py-2.5 px-4 flex items-center hover:bg-indigo-700 transition-colors duration-200 mt-4">
+                    <i class="fas fa-sign-out-alt w-6 text-center"></i>
+                    <span class="ml-3">Logout</span>
+                </a>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 overflow-auto">
+            <!-- Top Navigation -->
+            <header class="bg-white shadow-sm">
+                <div class="flex justify-between items-center p-4">
+                    <h2 class="text-xl font-semibold text-gray-800">{% block title %}{% endblock %}</h2>
+                    <div class="flex items-center">
+                        <div class="text-right mr-4">
+                            <p class="font-medium">{{ current_user.email }}</p>
+                            <p class="text-sm text-gray-500">{{ current_user.role|title }}</p>
+                        </div>
+                        <div class="w-10 h-10 rounded-full bg-indigo-600 flex items-center justify-center text-white font-bold">
+                            {{ current_user.email|first|upper }}
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Page Content -->
+            <main class="p-6">
+                {% block content %}{% endblock %}
+            </main>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{{ url_for('static', path='/js/main.js') }}"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

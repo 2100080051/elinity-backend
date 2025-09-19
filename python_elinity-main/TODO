@@ -1,0 +1,17 @@
+
+
+
+
+TODO:
+1.Daily n recommendations - with AI insight and feedback embedded in each profile along with compatibility score.
+2. Matching mechanism - the recommended profile either gets rejected (added to “declined profiles” list - remove from future search mechanism, archived, or straight to messaging. 
+
+
+
+ssh root@168.231.112.236
+
+
+See Here: https://raw.githubusercontent.com/Suraj-sicero/Elinity/refs/heads/connectionapp/SocialappFeatures/backend/data/personas.json
+
+
+Figma Link: https://www.figma.com/design/wS5PlaTnUrGh5T3ep7rBRx/Mobile-Ui?node-id=0-1&p=f&t=JJGZ8XjBfexaZMte-0

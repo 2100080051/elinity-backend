@@ -1,0 +1,332 @@
+{% extends "base.html" %}
+
+{% block title %}Add New Blog Post{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-md p-6">
+        <h1 class="text-2xl font-bold text-gray-800 mb-6">Add New Blog Post</h1>
+        
+        <form method="POST" action="/admin/blogs/" enctype="multipart/form-data" class="space-y-6">
+            <!-- CSRF Token -->
+            <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+            
+            <!-- Title -->
+            <div>
+                <label for="title" class="block text-sm font-medium text-gray-700 mb-1">Title</label>
+                <input type="text" id="title" name="title" required
+                    class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+            
+            <!-- Slug -->
+            <div>
+                <label for="slug" class="block text-sm font-medium text-gray-700 mb-1">Slug (URL-friendly version)</label>
+                <input type="text" id="slug" name="slug" 
+                    class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <p class="mt-1 text-sm text-gray-500">Leave empty to auto-generate from title</p>
+            </div>
+            
+            <!-- Content -->
+            <div>
+                <label for="content" class="block text-sm font-medium text-gray-700 mb-1">Content</label>
+                <textarea id="content" name="content" rows="10" required
+                    class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+            </div>
+            
+            <!-- Images Upload -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Images</label>
+                <div id="image-drop-zone" class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                    <div class="space-y-1 text-center">
+                        <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
+                            <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        <div class="flex text-sm text-gray-600">
+                            <label for="images" class="relative cursor-pointer bg-white rounded-md font-medium text-blue-600 hover:text-blue-500 focus-within:outline-none">
+                                <span>Upload images</span>
+                                <input id="images" name="images" type="file" class="sr-only" multiple accept="image/*">
+                            </label>
+                            <p class="pl-1">or drag and drop</p>
+                        </div>
+                        <p class="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
+                    </div>
+                </div>
+                <div id="image-previews" class="mt-2 grid grid-cols-2 md:grid-cols-4 gap-2">
+                    <!-- Image previews will be added here -->
+                </div>
+                <input type="hidden" name="image_urls" id="image_urls">
+            </div>
+
+            <!-- Videos Upload -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Videos</label>
+                <div id="video-drop-zone" class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                    <div class="space-y-1 text-center">
+                        <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                        </svg>
+                        <div class="flex text-sm text-gray-600">
+                            <label for="videos" class="relative cursor-pointer bg-white rounded-md font-medium text-blue-600 hover:text-blue-500 focus-within:outline-none">
+                                <span>Upload videos</span>
+                                <input id="videos" name="videos" type="file" class="sr-only" multiple accept="video/*">
+                            </label>
+                            <p class="pl-1">or drag and drop</p>
+                        </div>
+                        <p class="text-xs text-gray-500">MP4, WebM up to 50MB</p>
+                    </div>
+                </div>
+                <div id="video-previews" class="mt-2 grid grid-cols-2 md:grid-cols-4 gap-2">
+                    <!-- Video previews will be added here -->
+                </div>
+                <input type="hidden" name="video_urls" id="video_urls">
+            </div>
+            
+            <!-- Tags -->
+            <div>
+                <label for="tags" class="block text-sm font-medium text-gray-700 mb-1">Tags (comma-separated)</label>
+                <input type="text" id="tags" name="tags"
+                    class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+            
+            <!-- Links -->
+            <div>
+                <label for="links" class="block text-sm font-medium text-gray-700 mb-1">Links (one per line)</label>
+                <textarea id="links" name="links" rows="3"
+                    class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+            </div>
+            
+            <!-- Status -->
+            <div>
+                <label for="status" class="block text-sm font-medium text-gray-700 mb-1">Status</label>
+                <select id="status" name="status"
+                    class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="draft">Draft</option>
+                    <option value="published">Published</option>
+                </select>
+            </div>
+            
+            <!-- Submit Button -->
+            <div class="flex justify-end">
+                <button type="submit" id="submit-btn"
+                    class="px-6 py-2 bg-blue-600 text-white font-medium rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    Create Blog Post
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Simple slug generation from title -->
+<script>
+document.getElementById('title').addEventListener('input', function(e) {
+    const slugInput = document.getElementById('slug');
+    if (!slugInput.value) {  // Only auto-generate if slug is empty
+        const slug = e.target.value
+            .toLowerCase()
+            .replace(/[^\w\s-]/g, '')  // Remove special chars
+            .replace(/\s+/g, '-')       // Replace spaces with -
+            .replace(/--+/g, '-')        // Replace multiple - with single -
+            .trim();
+        slugInput.value = slug;
+    }
+});
+</script>
+
+<script>
+// Handle drag and drop for images
+const imageDropZone = document.getElementById('image-drop-zone');
+const imageInput = document.getElementById('images');
+const imagePreviews = document.getElementById('image-previews');
+const imageUrls = [];
+
+// Handle drag and drop for videos
+const videoDropZone = document.getElementById('video-drop-zone');
+const videoInput = document.getElementById('videos');
+const videoPreviews = document.getElementById('video-previews');
+const videoUrls = [];
+
+// Handle image file selection
+imageInput.addEventListener('change', (e) => handleFiles(e.target.files, 'image'));
+
+// Handle video file selection
+videoInput.addEventListener('change', (e) => handleFiles(e.target.files, 'video'));
+
+// Prevent default drag behaviors
+['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+    [imageDropZone, videoDropZone].forEach(zone => {
+        zone.addEventListener(eventName, preventDefaults, false);
+        document.body.addEventListener(eventName, preventDefaults, false);
+    });
+});
+
+// Highlight drop zone when item is dragged over it
+['dragenter', 'dragover'].forEach(eventName => {
+    imageDropZone.addEventListener(eventName, highlight, false);
+    videoDropZone.addEventListener(eventName, highlight, false);
+});
+
+['dragleave', 'drop'].forEach(eventName => {
+    imageDropZone.addEventListener(eventName, unhighlight, false);
+    videoDropZone.addEventListener(eventName, unhighlight, false);
+});
+
+// Handle dropped files
+imageDropZone.addEventListener('drop', (e) => handleDrop(e, 'image'), false);
+videoDropZone.addEventListener('drop', (e) => handleDrop(e, 'video'), false);
+
+function preventDefaults(e) {
+    e.preventDefault();
+    e.stopPropagation();
+}
+
+function highlight(e) {
+    e.currentTarget.classList.add('border-blue-500', 'bg-blue-50');
+}
+
+function unhighlight(e) {
+    e.currentTarget.classList.remove('border-blue-500', 'bg-blue-50');
+}
+
+function handleDrop(e, type) {
+    const dt = e.dataTransfer;
+    const files = dt.files;
+    handleFiles(files, type);
+}
+
+async function handleFiles(files, type) {
+    const previewsContainer = type === 'image' ? imagePreviews : videoPreviews;
+    const urls = type === 'image' ? imageUrls : videoUrls;
+    const maxSize = type === 'image' ? 10 * 1024 * 1024 : 50 * 1024 * 1024; // 10MB for images, 50MB for videos
+    
+    for (let file of files) {
+        if (file.size > maxSize) {
+            alert(`File ${file.name} is too large. Max size: ${maxSize / (1024 * 1024)}MB`);
+            continue;
+        }
+        
+        // Create preview
+        const preview = document.createElement('div');
+        preview.className = 'relative group';
+        
+        const removeBtn = document.createElement('button');
+        removeBtn.className = 'absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity';
+        removeBtn.innerHTML = '&times;';
+        removeBtn.onclick = () => {
+            preview.remove();
+            const index = urls.findIndex(url => url.name === file.name);
+            if (index > -1) {
+                urls.splice(index, 1);
+                updateHiddenInputs();
+            }
+        };
+        
+        if (type === 'image') {
+            const img = document.createElement('img');
+            img.src = URL.createObjectURL(file);
+            img.className = 'w-full h-32 object-cover rounded';
+            preview.appendChild(img);
+        } else {
+            const video = document.createElement('video');
+            video.src = URL.createObjectURL(file);
+            video.controls = true;
+            video.className = 'w-full h-32 object-cover rounded';
+            preview.appendChild(video);
+        }
+        
+        preview.appendChild(removeBtn);
+        previewsContainer.appendChild(preview);
+        
+        // Upload file
+        try {
+            const formData = new FormData();
+            formData.append('file', file);
+            
+            const response = await fetch('/admin/blogs/upload/', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRF-Token': document.querySelector('input[name="csrf_token"]').value
+                }
+            });
+            
+            if (response.ok) {
+                const data = await response.json();
+                urls.push({
+                    name: file.name,
+                    url: data.url,
+                    type: type
+                });
+                updateHiddenInputs();
+            } else {
+                throw new Error('Upload failed');
+            }
+        } catch (error) {
+            console.error('Error uploading file:', error);
+            alert(`Error uploading ${file.name}`);
+            preview.remove();
+        }
+    }
+}
+
+function updateHiddenInputs() {
+    document.getElementById('image_urls').value = JSON.stringify(
+        imageUrls.map(item => item.url)
+    );
+    document.getElementById('video_urls').value = JSON.stringify(
+        videoUrls.map(item => item.url)
+    );
+}
+
+// Handle form submission
+document.querySelector('form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const submitBtn = document.getElementById('submit-btn');
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = 'Saving...';
+    
+    try {
+        const form = e.target;
+        const formData = new FormData(form);
+        
+        // Add CSRF token to form data
+        const csrfToken = document.querySelector('input[name="csrf_token"]').value;
+        formData.append('csrf_token', csrfToken);
+        
+        // Add image and video URLs
+        formData.set('images', JSON.stringify(imageUrls.map(item => item.url)));
+        formData.set('videos', JSON.stringify(videoUrls.map(item => item.url)));
+        
+        const response = await fetch(form.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-CSRF-Token': csrfToken
+            }
+        });
+        
+        if (response.redirected) {
+            window.location.href = response.url;
+        } else if (!response.ok) {
+            throw new Error('Failed to save blog post');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred while saving the blog post. Please try again.');
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = 'Create Blog Post';
+    }
+});
+</script>
+
+<style>
+#image-drop-zone, #video-drop-zone {
+    transition: all 0.2s ease;
+}
+
+#image-drop-zone.drag-over, #video-drop-zone.drag-over {
+    border-color: #3b82f6;
+    background-color: #eff6ff;
+}
+</style>
+{% endblock %}

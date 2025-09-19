@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "elinity-service",
+  "private_key_id": "85583dbbeac8769f7bbce93463e3ea2be8a274db",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCVSycFIBG3UkDe\nZiveQ7KQT/poiUqzKAlCDOQZ/7QYKWI3dgYH9ZZcEEaSyyqcB1Jq6QzERl9hjx1L\n5RLfFLpqbjS73zjEn1LWxkc8w7guHiOYMaoeNE5SspCH1uJHQHaW7Z78ZixQ9iWC\n4aVitB/XpImXJyl0zeGADZqnR5iZyzGENvdZHVaw1QkC6+bJK49xXgoC390ByCAu\nJzfNzt4ZH9d+zFoP1M7X51YKOgL4aoG0givmyg79XmfD8kUJxorv3pXPp0HYfj8+\nbUj3/XtEkSR2xJZ94oYv/IJWMdq98DFSSP9cHkDJBqCbxh9Q9V8KbbMOjfJhtgvK\nYSHvDWwXAgMBAAECggEAJPCrfwEoYQvhMSZmxGBL1plzhFo0OZA2ejlmV2iFz1Su\nELsLUvzZb343eCr9KA5Hvlxb5FTlVOZsgVL1EG24ko0iTzo0ebJSdQIqrkZfVEnw\n1L+1MDQRDTVRvcrVwnuY3E9/f0Rowr+lGHVszrdzCZCU2um9wEERAvZaxflZMPRN\nM4Gg3hNQZFD7QlG5MX6amcqe8RxzBSZ203yCald7rDTgLPmpuQ3z6w4grq7HQUYC\n8qFruKkpgq7b2sPckiZaWSRSZ3mNUZk328ytrR2rBHsywFZMQLRDMNzYRYrH3GKd\npllEulMu8LmLXpHBmvSJjG+zmTZuJABw5AzQwIP2AQKBgQDN9xBKQRr76GryhlKp\nuHEPPCcsEWW5gv9dTXwweSHrZLPfDf5s4Bp+6dYUSljqMT+cLbe8Fa+3VMeo7Wm1\nFNFo+U7SL2aOoXssOiX+7TCO13I+olQfdBqIBtlyPLMj8VyxxW05Juk3ld//xtD7\nq2ys80Bxafaxum/4p9UfslSwYQKBgQC5j7IJa4zsqNGoDYGxNLnN/9XcXmqKBYR/\nyL7j3CkASVCfHu+q9wbEvKdc07dTYMkT3d2IiatLeTjubPSOGAV64f8ZswIbvMgS\nTleO2DrMUDowimnzlLKWZD4SdiW3ke+pVrHsCiRYUzjgW0EqhLoBg8VQqFj/01+C\nVHg7HLHPdwKBgC1PCW1cTyRVZ5l8hRjC81QnpnJiTV92+tg6oHRFYXnYCF2sRWkM\nD6gVpruF83NpbBXeVMnyd1o8M0PtHlDwiHSwS2+fb882pNMA47Tl1sXFjWNL8HeO\n4ftEjnc79SiWAw80YCevcKSCuukYgoaqmlidlnKcneFRIyqvOQok/85hAoGAaWJ2\nlmsCahWmnG6vTVjIfXnil3j3wNNJYNk9sGME1ijNJNGJA+uvaGRMGKgU4cGB8Up7\n2mN1aTO7ZY1zho+V7SgUnR/Q/rfEWMEtcO7U1dxqb87sRW4Zzte3ePyohwzWs7GM\n8qT/5zm8f47T/7XJfbq8gQZbJU+CWp5megvd4BkCgYA66VR17oBv9wjPml9iYFCD\nhcTG+nOEnLYjpPKelH7OHCz5O3ERHlxdJi0UsN1bl3sl0AdVQKGjd96Nr5MzPIi1\nKVZvZlQKCcpYMDPf67scc2qkVl07/13Nr69L1PNTT8RNi3R5z4+VtPqjwxLGRF9P\nFRuh/M6duziW8oxZYK6isg==\n-----END PRIVATE KEY-----\n",
+  "client_email": "elinity-service@elinity-service.iam.gserviceaccount.com",
+  "client_id": "117003428746335947346",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/elinity-service%40elinity-service.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

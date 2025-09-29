@@ -20,7 +20,9 @@ from dotenv import load_dotenv
 
 # 👇 NEW: import Gradio and your onboarding app
 import gradio as gr
-from api.routers import voice_onboarding  # must expose gradio_app
+from api.routers import voice_onboarding
+
+ # must expose gradio_app
 
 load_dotenv()
 
@@ -36,7 +38,7 @@ async def lifespan(app: FastAPI):
 
 # Initialize FastAPI
 app = FastAPI(lifespan=lifespan)
-
+app.include_router(voice_onboarding.router)
 # Middleware
 app.add_middleware(
     SessionMiddleware,

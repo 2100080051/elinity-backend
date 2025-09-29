@@ -7,24 +7,20 @@ load_dotenv()
 
 
 class PineconeClient:
-    def __init__(self,pinecone_key=None):
-        self._pinecone_key = pinecone_key or os.getenv("PINECONE_API_KEY")
-        if not self._pinecone_key:
-            raise RuntimeError("PINECONE_API_KEY not found in environment")
-        self.index_name = "elinity-personas"
-        self.pc = Pinecone(api_key=self._pinecone_key)
-        # Create index if it doesn't exist
-        if not self.pc.has_index(self.index_name):
-            self.pc.create_index_for_model(
-                name=self.index_name,
-                cloud="aws",
-                region="us-east-1",
-                embed={
-                    "model": "llama-text-embed-v2",
-                    "field_map": {"text": "chunk_text"}
-                }
-            )
-        self.index = self.pc.Index(self.index_name)
+    def __init__(self):
+        api_key = os.getenv("PINECONE_API_KEY")
+        index_name = os.getenv("PINECONE_INDEX_NAME")
+        host = os.getenv("PINECONE_HOST")
+
+        if not api_key or not index_name:
+            raise RuntimeError("PINECONE_API_KEY and PINECONE_INDEX_NAME must be set in .env")
+
+        # Initialize Pinecone
+        self.pc = Pinecone(api_key=api_key)
+
+        # Connect to existing index
+        self.index_name = index_name
+        self.index = self.pc.Index(self.index_name, host=host)
 
         
             

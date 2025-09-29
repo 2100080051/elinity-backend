@@ -1,4 +1,6 @@
 from fastapi import APIRouter, Depends,status
+from datetime import datetime, timezone
+
 from sqlalchemy.orm import Session, selectinload
 from database.session import get_db
 from models.user import Tenant, PersonalInfo, BigFiveTraits,MBTITraits, Psychology, InterestsAndHobbies, ValuesBeliefsAndGoals, Favorites, RelationshipPreferences, FriendshipPreferences, CollaborationPreferences, PersonalFreeForm, Intentions, IdealCharacteristics, AspirationAndReflections
@@ -242,7 +244,7 @@ async def add_profile_picture(pic: ProfilePictureCreate, db: Session = Depends(g
     # Create and persist picture
     db_pic = ProfilePictureModel(
         tenant=current_user.id,
-        url=pic.url,
+        url=str(pic.url),
         uploaded_at=datetime.now(timezone.utc)
     )
     db.add(db_pic)

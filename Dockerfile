@@ -14,7 +14,8 @@ WORKDIR /app
 
 # Copy requirements and install dependencies
 COPY requirements.txt /app/requirements.txt
-RUN pip install -r requirements.txt
+RUN pip install --default-timeout=1000 --retries 10 -r requirements.txt
+
 
 
 # Copy app code
@@ -22,3 +23,13 @@ COPY . /app
 
 # Expose the necessary port
 EXPOSE 8081
+
+# Copy code
+COPY . /app
+
+# Copy Firebase credentials JSON
+# Make sure keys directory exists
+RUN mkdir -p /app/keys
+
+# Copy Firebase credentials into container
+COPY keys/firebase.json /app/keys/firebase.json

@@ -85,7 +85,7 @@ class QuestionCardGenerator:
                  api_key: Optional[str] = None, 
                  model_name: str = "gemini-2.0-flash",
                  langsmith_api_key: Optional[str] = None,
-                 prompt_repo: str = "dharmendra622/question-card-generator"):
+                 prompt_repo: str = "question-card-generator"):
         """
         Initialize the search mode system with LangChain and structured output
         

@@ -1,9 +1,12 @@
-from pydantic import BaseModel,ConfigDict
-from typing import Optional 
-from datetime import datetime 
- 
+from pydantic import BaseModel, ConfigDict
+from typing import Optional
+from datetime import datetime
 
-class GroupSchema(BaseModel):
+
+# ----------------------------
+# Group
+# ----------------------------
+class GroupSchema(BaseModel):   # For responses
     id: str
     asset_url: Optional[str]
     name: str
@@ -15,7 +18,7 @@ class GroupSchema(BaseModel):
     updated_at: Optional[datetime]
 
 
-class GroupCreateSchema(BaseModel):
+class GroupCreateSchema(BaseModel):   # For creating
     name: str
     description: str
     asset_url: Optional[str] = None
@@ -25,14 +28,29 @@ class GroupCreateSchema(BaseModel):
         from_attributes = True
 
 
-class GroupMemberSchema(BaseModel):
+# ----------------------------
+# Group Members
+# ----------------------------
+class GroupMemberSchema(BaseModel):   # For responses
     id: str
     group: str
     tenant: str
     role: str
     created_at: datetime
-    updated_at: Optional[datetime] 
+    updated_at: Optional[datetime]
 
+
+class GroupMemberCreateSchema(BaseModel):   # For creating
+    group: str
+    role: str = "member"
+
+    class Config:
+        from_attributes = True
+
+
+# ----------------------------
+# Assets
+# ----------------------------
 class AssetSchema(BaseModel):
     id: str
     tenant: str
@@ -42,9 +60,14 @@ class AssetSchema(BaseModel):
 
     model_config = ConfigDict(from_attributes=True)
 
-class ChatSchema(BaseModel): 
+
+# ----------------------------
+# Chats
+# ----------------------------
+class ChatSchema(BaseModel):   # For responses
     id: str
     sender: Optional[str]
+    receiver: Optional[str]
     group: Optional[str]
     asset_url: Optional[str]
     message: str
@@ -52,7 +75,13 @@ class ChatSchema(BaseModel):
     updated_at: Optional[datetime]
 
     model_config = ConfigDict(from_attributes=True)
-    
-    
-    
-    
+
+
+class ChatCreateSchema(BaseModel):   # For creating
+    receiver: Optional[str] = None
+    group: Optional[str] = None
+    asset_url: Optional[str] = None
+    message: str   # required
+
+    class Config:
+        from_attributes = True

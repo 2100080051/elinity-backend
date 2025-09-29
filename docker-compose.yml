@@ -1,5 +1,4 @@
-services: 
-
+services:
   elinity_common:
     build:
       context: .
@@ -9,14 +8,16 @@ services:
     image: elinity_common:latest
     container_name: elinity_common
     ports:
-      - "8081:8081"
+      - "8081:8081"   # FastAPI
+      - "7862:7862"   # Voice Onboarding (Gradio)
     environment:
       - PYTHONPATH=/app
-    command: uvicorn main:app --host 0.0.0.0 --port 8081 
-
+    command: >
+      sh -c "uvicorn main:app --host 0.0.0.0 --port 8081 & python api/routers/voice_onboarding.py"
     networks:
       - elinity_common_default
     volumes:
+      - ./keys/firebase.json:/app/keys/firebase.json:ro
       - ./:/app
 
   celery_worker_elinity:
@@ -33,8 +34,8 @@ services:
     networks:
       - elinity_common_default
     volumes:
-      - ./:/app 
-  
+      - ./:/app
+
   celery_beat_elinity:
     container_name: elinity_celery_beat
     build:
@@ -49,8 +50,8 @@ services:
     networks:
       - elinity_common_default
     volumes:
-      - ./:/app 
-    
+      - ./:/app
+
 networks:
-  elinity_common_default: 
-    driver: bridge 
+  elinity_common_default:
+    driver: bridge

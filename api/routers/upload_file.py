@@ -1,20 +1,23 @@
 from fastapi import APIRouter, UploadFile, Depends
-from utils.storage import AWSStorage
+from utils.storage import FirebaseStorageClient
 from utils.token import get_current_user
-from models.user import Tenant 
+from models.user import Tenant
 
 router = APIRouter()
+firebase_client = FirebaseStorageClient()
 
-
-aws_client = AWSStorage()
 
 @router.post("/", tags=["Upload Assets"])
 async def upload_file(file: UploadFile, current_user: Tenant = Depends(get_current_user)) -> dict:
+    """
+    Upload a file to Firebase Storage under the current user's folder.
+    """
     print(file)
-    # read file bytes before uploading
+
+    # Read file bytes
     data = await file.read()
-    
-    # upload bytes to AWS
-    blob_url = aws_client.upload_bytes_to_aws(data, file.filename, current_user.id)
-    
+
+    # Upload to Firebase (automatically handles bytes)
+    blob_url = firebase_client.upload_file(data, file.filename, current_user.id)
+
     return {"url": blob_url}

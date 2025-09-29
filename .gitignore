@@ -94,3 +94,4 @@ configs/
  
 # Checkpoint file
 .ipynb_checkpoints
+firebase.json

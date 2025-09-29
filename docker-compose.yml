@@ -8,12 +8,10 @@ services:
     image: elinity_common:latest
     container_name: elinity_common
     ports:
-      - "8081:8081"   # FastAPI
-      - "7862:7862"   # Voice Onboarding (Gradio)
+      - "8081:8081"   # FastAPI (voice onboarding also mounted here)
     environment:
       - PYTHONPATH=/app
-    command: >
-      sh -c "uvicorn main:app --host 0.0.0.0 --port 8081 & python api/routers/voice_onboarding.py"
+    command: uvicorn main:app --host 0.0.0.0 --port 8081
     networks:
       - elinity_common_default
     volumes:

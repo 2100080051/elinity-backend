@@ -294,5 +294,20 @@ with gr.Blocks(title="ElinityAI Voice Onboarding") as app:
     analyze_btn.click(
         fn=analyze_and_finalize, inputs=[state], outputs=[profile_output], queue=True
     )
-if __name__ == "__main__":
-    app.launch(server_name="0.0.0.0", server_port=7862)
+
+# ------------------------------
+# Mount into FastAPI instead of launching standalone
+# ------------------------------
+from fastapi import APIRouter
+from fastapi.responses import HTMLResponse
+
+router = APIRouter()
+
+@router.get("/voice-onboarding")
+def voice_onboarding_ui():
+    return HTMLResponse(app.launch(
+        server_name="0.0.0.0",
+        server_port=None,   # disable its own server
+        inline=True,
+        share=False
+    ))
